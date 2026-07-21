@@ -1,4 +1,5 @@
 .env
+*.pyc
 documents/*
 !documents/.gitkeep
 chroma_db/
