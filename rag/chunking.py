@@ -1,9 +1,9 @@
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-from config import CHUNK_SIZE, CHUNK_OVERLAP
+from .config import CHUNK_SIZE, CHUNK_OVERLAP
 
-def get_splitter() -> TextSplitter:
+def get_splitter():
     splitter = RecursiveCharacterTextSplitter(
         chunk_size = CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP
         )
