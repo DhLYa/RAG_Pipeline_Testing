@@ -1,5 +1,10 @@
-DOCS_DIR = r"../documents"
-CHROMA_DIR = r"../chroma_db"
+from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DOCS_DIR = Path("documents")
+CHROMA_DIR = Path("chroma_db")
 CHUNK_CACHE_DIR = ""
 
 EMBEDDING_MODEL = "voyage-4-lite"
