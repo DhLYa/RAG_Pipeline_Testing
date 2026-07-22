@@ -1,8 +1,6 @@
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from .config import CHUNK_SIZE, CHUNK_OVERLAP
-
-MIN_CHUNK_CHARS = 80
+from .config import CHUNK_SIZE, CHUNK_OVERLAP, MIN_CHUNK_CHARS
 
 def get_splitter():
     return RecursiveCharacterTextSplitter(
