@@ -19,6 +19,7 @@ def build_prompt() -> ChatPromptTemplate:
     return ChatPromptTemplate.from_template("""
     Use the following pieces of context to answer the question at the end.
     If you don't know the answer, say that you don't know.
+    Do not use markdown formatting.
     Context: {context}
     Question: {question}
     """)
