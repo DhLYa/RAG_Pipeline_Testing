@@ -31,10 +31,8 @@ def upsert_chunks(store: Chroma, chunks: list[Document]) -> int:
 
     if new_chunks:
         store.add_documents(documents=new_chunks, ids=new_ids)
-        print(f"Added {len(new_chunks)} new chunks.")
-    else:
-        print("No new chunks to add.")
-    return
+        
+    return len(new_chunks)
 
 def get_retriever(store: Chroma, k: int = RETRIEVAL_K):
     retriever = store.as_retriever(
