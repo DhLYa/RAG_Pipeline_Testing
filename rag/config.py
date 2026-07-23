@@ -8,7 +8,7 @@ DOCS_DIR = Path("documents")
 CHROMA_DIR = Path("chroma_db")
 CHUNK_CACHE_DIR = ""
 
-EMBEDDING_MODEL = "voyage-4-lite"
+EMBEDDING_MODEL = "voyage-4-large"
 RERANKER_MODEL = "rerank-2.5"
 LLM_MODEL = "gemini-3.5-flash"
 CHUNK_SIZE = 500
