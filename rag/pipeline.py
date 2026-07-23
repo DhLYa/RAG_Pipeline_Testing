@@ -3,7 +3,7 @@ from langchain_chroma import Chroma
 from .chain import ask, build_chain
 from .chunking import chunk_documents
 from .ingest import load_documents
-from .vectorstore import get_retriever, get_vector_store, upsert_chunks
+from .vectorstore import get_reranker, get_retriever, get_compression_retriever, get_vector_store, upsert_chunks
 
 
 def ingest() -> Chroma:
@@ -21,8 +21,12 @@ def ingest() -> Chroma:
 
 def main():
     store = ingest()
+
+    reranker = get_reranker()
     retriever = get_retriever(store)
-    chain = build_chain(retriever)
+    compression_retriever = get_compression_retriever(reranker, retriever)
+
+    chain = build_chain(compression_retriever)
 
     print("\nRAG ready, Ask a question. (empty line to quit).")
     while True:

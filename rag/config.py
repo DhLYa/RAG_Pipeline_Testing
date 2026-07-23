@@ -9,9 +9,11 @@ CHROMA_DIR = Path("chroma_db")
 CHUNK_CACHE_DIR = ""
 
 EMBEDDING_MODEL = "voyage-4-lite"
+RERANKER_MODEL = "rerank-2.5"
 LLM_MODEL = "gemini-3.6-flash"
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 100
 MIN_CHUNK_CHARS = 80
 
-RETRIEVAL_K = 5
+RETRIEVAL_K = 20
+RERANK_K = 5

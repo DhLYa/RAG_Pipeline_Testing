@@ -2,9 +2,10 @@ import hashlib
  
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
-from langchain_voyageai import VoyageAIEmbeddings
+from langchain_voyageai import VoyageAIEmbeddings, VoyageAIRerank
+from langchain_classic.retrievers import ContextualCompressionRetriever
  
-from .config import EMBEDDING_MODEL, CHROMA_DIR, RETRIEVAL_K
+from .config import EMBEDDING_MODEL, RERANKER_MODEL, CHROMA_DIR, RETRIEVAL_K, RERANK_K
 
 def get_embedding_model() -> VoyageAIEmbeddings:
     embedding_model = VoyageAIEmbeddings(model=EMBEDDING_MODEL)
@@ -12,7 +13,7 @@ def get_embedding_model() -> VoyageAIEmbeddings:
 
 def get_vector_store() -> Chroma:
     vector_store = Chroma(
-    persist_directory=CHROMA_DIR,
+    persist_directory=str(CHROMA_DIR),
     embedding_function=get_embedding_model()
 )
     return vector_store
@@ -34,9 +35,19 @@ def upsert_chunks(store: Chroma, chunks: list[Document]) -> int:
         
     return len(new_chunks)
 
+def get_reranker(k: int = RERANK_K):
+    reranker = VoyageAIRerank(model=RERANKER_MODEL, top_k=k)
+    return reranker
+
 def get_retriever(store: Chroma, k: int = RETRIEVAL_K):
     retriever = store.as_retriever(
-    search_type="similarity",
-    search_kwargs={"k": RETRIEVAL_K}
+    search_kwargs={"k": k}
 )
     return retriever
+
+def get_compression_retriever(reranker, retriever):
+    compression_retriever = ContextualCompressionRetriever(
+        base_compressor=reranker,
+        base_retriever=retriever,
+    )
+    return compression_retriever
