@@ -9,7 +9,7 @@ from .config import LLM_MODEL
 
 
 def get_llm():
-    llm = ChatGoogleGenerativeAI(model=LLM_MODEL)
+    llm = ChatGoogleGenerativeAI(model=LLM_MODEL, temperature=0)
     return llm
 
 def format_docs(docs: list[Document]) -> str:
